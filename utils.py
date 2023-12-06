@@ -4,6 +4,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 browser = "chrome"
@@ -30,7 +32,7 @@ def get_driver():
     if browser == "chrome":
         options = ChromeOptions()
         options.add_argument("--headless=new")
-        driver = webdriver.Chrome(options=options)
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
         driver.get("https://www.saucedemo.com/")
         return driver
 
@@ -42,6 +44,8 @@ def get_driver():
         return driver
 
     # elif browser == "edge":
+        # driver = webdriver.Edge()
+        # driver.get("https://www.saucedemo.com/")
 
     else:
         raise KeyError("尚未支援的driver")
