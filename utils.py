@@ -4,13 +4,17 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 
-browser = "chrome"
+
+# browser = "chrome"
 # browser = "firefox"
-# browser = "edge"
+browser = "edge"
 
 
 def login_success(d):
@@ -43,9 +47,12 @@ def get_driver():
         driver.get("https://www.saucedemo.com/")
         return driver
 
-    # elif browser == "edge":
-        # driver = webdriver.Edge()
-        # driver.get("https://www.saucedemo.com/")
+    elif browser == "edge":
+        options = EdgeOptions()
+        options.add_argument("--headless=new")
+        driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=options)
+        driver.get("https://www.saucedemo.com/")
+        return driver
 
     else:
         raise KeyError("尚未支援的driver")
