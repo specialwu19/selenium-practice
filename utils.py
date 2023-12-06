@@ -9,12 +9,14 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 
 # browser = "chrome"
-# browser = "firefox"
-browser = "edge"
+browser = "firefox"
+# browser = "edge"
 
 
 def login_success(d):
@@ -43,7 +45,7 @@ def get_driver():
     elif browser == "firefox":
         options = FirefoxOptions()
         options.add_argument("--headless")
-        driver = webdriver.Firefox(options=options)
+        driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=options)
         driver.get("https://www.saucedemo.com/")
         return driver
 
