@@ -14,8 +14,8 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 
 
-# browser = "chrome"
-browser = "firefox"
+browser = "chrome"
+# browser = "firefox"
 # browser = "edge"
 
 
