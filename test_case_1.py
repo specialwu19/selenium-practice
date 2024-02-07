@@ -11,9 +11,9 @@ driver = get_driver()
 def test_login_success():
     login_success(driver)
 
-    login_successful = driver.find_element(By.CLASS_NAME, "title")
+    login_successful = driver.find_element(By.CSS_SELECTOR, ".app_logo")
 
-    assert login_successful.text == "Products"
+    assert login_successful.text == "Swag Labs"
 
 
 def test_logout_success():

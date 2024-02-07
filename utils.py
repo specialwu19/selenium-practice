@@ -21,16 +21,16 @@ browser = "chrome"
 
 def login_success(d):
     username = WebDriverWait(d, 10).until(
-        EC.presence_of_element_located((By.NAME, "user-name"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#user-name"))
     )
     password = WebDriverWait(d, 10).until(
-        EC.presence_of_element_located((By.NAME, "password"))
+        EC.presence_of_element_located((By.CSS_SELECTOR,"#password"))
     )
 
     username.send_keys("standard_user")
     password.send_keys("secret_sauce")
 
-    login = d.find_element(By.NAME, "login-button")
+    login = d.find_element(By.CSS_SELECTOR, "#login-button")
     login.click()
 
 
