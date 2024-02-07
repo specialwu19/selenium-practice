@@ -12,18 +12,18 @@ def test_browse_products_success():
     login_success(driver)
 
     homepage_ready = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "title"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".title"))
     )
 
     the_first_product_title = driver.find_element(
-        By.XPATH, "/html/body/div/div/div/div[2]/div/div/div/div[1]/div[2]/div[1]/a/div"
+        By.CSS_SELECTOR, "div.inventory_item div.inventory_item_name"
     )
     the_first_product_title_name = the_first_product_title.text
     the_first_product_title.click()
     time.sleep(1)
 
     the_first_product_own_page_title = driver.find_element(
-        By.XPATH, '//*[@id="inventory_item_container"]/div/div/div[2]/div[1]'
+        By.CSS_SELECTOR, "#inventory_item_container div.inventory_details_name.large_size"
     )
 
     assert the_first_product_title_name == the_first_product_own_page_title.text

@@ -13,7 +13,6 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 
 
-
 browser = "chrome"
 # browser = "firefox"
 # browser = "edge"
@@ -24,7 +23,7 @@ def login_success(d):
         EC.presence_of_element_located((By.CSS_SELECTOR, "#user-name"))
     )
     password = WebDriverWait(d, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR,"#password"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#password"))
     )
 
     username.send_keys("standard_user")
@@ -38,21 +37,27 @@ def get_driver():
     if browser == "chrome":
         options = ChromeOptions()
         options.add_argument("--headless=new")
-        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+        driver = webdriver.Chrome(
+            service=ChromeService(ChromeDriverManager().install()), options=options
+        )
         driver.get("https://www.saucedemo.com/")
         return driver
 
     elif browser == "firefox":
         options = FirefoxOptions()
         options.add_argument("--headless")
-        driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=options)
+        driver = webdriver.Firefox(
+            service=FirefoxService(GeckoDriverManager().install()), options=options
+        )
         driver.get("https://www.saucedemo.com/")
         return driver
 
     elif browser == "edge":
         options = EdgeOptions()
         options.add_argument("--headless=new")
-        driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=options)
+        driver = webdriver.Edge(
+            service=EdgeService(EdgeChromiumDriverManager().install()), options=options
+        )
         driver.get("https://www.saucedemo.com/")
         return driver
 

@@ -10,21 +10,21 @@ driver = get_driver()
 
 def test_login_fail():
     username = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.NAME, "user-name"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#user-name"))
     )
     password = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.NAME, "password"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#password"))
     )
 
     username.send_keys("abc123")
     password.send_keys("abcdefg")
 
-    login = driver.find_element(By.NAME, "login-button")
+    login = driver.find_element(By.CSS_SELECTOR, "#login-button")
     login.click()
     time.sleep(1)
 
     login_fail = driver.find_element(
-        By.XPATH, '//*[@id="login_button_container"]/div/form/div[3]/h3'
+        By.CSS_SELECTOR, "div.error-message-container.error h3[data-test='error']"
     )
 
     assert (

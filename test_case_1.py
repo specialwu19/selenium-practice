@@ -18,15 +18,15 @@ def test_login_success():
 
 def test_logout_success():
     function_button = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "react-burger-menu-btn"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#react-burger-menu-btn"))
     )
     function_button.click()
     time.sleep(1)
     logout = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="logout_sidebar_link"]'))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#logout_sidebar_link"))
     )
     logout.click()
-    logout_success = driver.find_element(By.NAME, "login-button")
+    logout_success = driver.find_element(By.CSS_SELECTOR, "#login-button")
     time.sleep(1)
 
     assert logout_success.get_attribute("value") == "Login"

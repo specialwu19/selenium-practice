@@ -9,15 +9,18 @@ driver = get_driver()
 def test_browse_products_success():
     login_success(driver)
 
-    product_sort_button = driver.find_element(By.CLASS_NAME, "product_sort_container")
+    product_sort_button = driver.find_element(
+        By.CSS_SELECTOR, "select.product_sort_container"
+    )
     product_sort_button.click()
     time.sleep(1)
     sort_price_lowtohigh = driver.find_element(
-        By.XPATH, '//*[@id="header_container"]/div[2]/div/span/select/option[3]'
+        By.CSS_SELECTOR,
+        "div.header_secondary_container select.product_sort_container option[value='lohi']",
     )
     sort_price_lowtohigh.click()
 
-    select_value = driver.find_element(By.CLASS_NAME, "product_sort_container")
+    select_value = driver.find_element(By.CSS_SELECTOR, "select.product_sort_container")
 
     assert select_value.get_attribute("value") == "lohi"
 
@@ -26,15 +29,10 @@ def test_browse_products_success():
     driver.execute_script("window.scrollTo(document.body.scrollHeight,0);")
     time.sleep(1)
 
-    the_first_product = driver.find_element(
-        By.XPATH, '//*[@id="inventory_container"]/div/div[1]/div[2]/div[2]/div'
-    )
-    the_price_of_the_first_product = float(the_first_product.text.lstrip("$"))
-    the_last_product = driver.find_element(
-        By.XPATH, '//*[@id="inventory_container"]/div/div[6]/div[2]/div[2]/div'
-    )
-    the_price_of_the_last_product = float(the_last_product.text.lstrip("$"))
+    item_prices = driver.find_elements(By.CSS_SELECTOR, "div.inventory_item_price")
+    the_first_product_price = float(item_prices[0].text.lstrip("$"))
+    the_last_product_price = float(item_prices[-1].text.lstrip("$"))
 
-    assert the_price_of_the_first_product < the_price_of_the_last_product
+    assert the_first_product_price < the_last_product_price
 
     driver.quit()
