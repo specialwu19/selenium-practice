@@ -13,41 +13,41 @@ def test_checkout_success():
     login_success(driver)
 
     homepage_ready = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "title"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".title"))
     )
 
-    pick_a_product = driver.find_element(By.XPATH, '//*[@id="item_4_title_link"]/div')
+    pick_a_product = driver.find_element(By.CSS_SELECTOR, "#item_4_title_link div")
     pick_a_product.click()
     time.sleep(1)
-    buy_a_product = driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack")
+    buy_a_product = driver.find_element(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack")
     buy_a_product_title = driver.find_element(
-        By.XPATH, '//*[@id="inventory_item_container"]/div/div/div[2]/div[1]'
+        By.CSS_SELECTOR, "div.inventory_details_desc_container div"
     )
     buy_a_product_name = buy_a_product_title.text
     buy_a_product.click()
     time.sleep(1)
 
-    shopping_cart = driver.find_element(By.ID, "shopping_cart_container")
+    shopping_cart = driver.find_element(By.CSS_SELECTOR, "#shopping_cart_container")
     shopping_cart.click()
     shopping_cart_product = driver.find_element(
-        By.XPATH, '//*[@id="item_4_title_link"]/div'
+        By.CSS_SELECTOR, "#item_4_title_link div"
     )
 
     assert buy_a_product_name == shopping_cart_product.text
 
-    checkout = driver.find_element(By.XPATH, '//*[@id="checkout"]')
+    checkout = driver.find_element(By.CSS_SELECTOR, "#checkout")
     checkout.click()
 
     checkout_your_info = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="header_container"]/div[2]/span')
+            (By.CSS_SELECTOR, "div.header_secondary_container span")
         )
     )
 
-    firs_tname = driver.find_element(By.ID, "first-name")
-    last_name = driver.find_element(By.ID, "last-name")
-    postal_code = driver.find_element(By.ID, "postal-code")
-    continue_button = driver.find_element(By.ID, "continue")
+    firs_tname = driver.find_element(By.CSS_SELECTOR, "#first-name")
+    last_name = driver.find_element(By.CSS_SELECTOR, "#last-name")
+    postal_code = driver.find_element(By.CSS_SELECTOR, "#postal-code")
+    continue_button = driver.find_element(By.CSS_SELECTOR, "#continue")
 
     firs_tname.send_keys("Janice")
     last_name.send_keys("Wu")
@@ -56,18 +56,18 @@ def test_checkout_success():
     time.sleep(1)
 
     checkout_product_name = driver.find_element(
-        By.XPATH, '//*[@id="item_4_title_link"]/div'
+        By.CSS_SELECTOR, "#item_4_title_link div"
     )
     checkout_product_name = checkout_product_name.text
 
     checkout_product_price = driver.find_element(
-        By.XPATH,
-        '//*[@id="checkout_summary_container"]/div/div[1]/div[3]/div[2]/div[2]/div',
+        By.CSS_SELECTOR,
+        "div.item_pricebar div"
     )
     checkout_product_price = float(checkout_product_price.text.lstrip("$"))
 
     item_total_price = driver.find_element(
-        By.XPATH, '//*[@id="checkout_summary_container"]/div/div[2]/div[6]'
+        By.CSS_SELECTOR, "#checkout_summary_container div.summary_subtotal_label"
     )
     item_total_price = item_total_price.text
     price_pattern = r"\$\d+\.\d+"
@@ -76,7 +76,7 @@ def test_checkout_success():
     item_total_price = float(str(match_price).lstrip("$"))
 
     tax_price = driver.find_element(
-        By.XPATH, '//*[@id="checkout_summary_container"]/div/div[2]/div[7]'
+        By.CSS_SELECTOR, "#checkout_summary_container div.summary_tax_label"
     )
     tax_price = tax_price.text
     tax_match_price = re.search(price_pattern, tax_price)
@@ -84,17 +84,17 @@ def test_checkout_success():
     tax_price = float(str(tax_match_price).lstrip("$"))
 
     total_price = driver.find_element(
-        By.XPATH, '//*[@id="checkout_summary_container"]/div/div[2]/div[8]'
+        By.CSS_SELECTOR, "#checkout_summary_container div.summary_info_label.summary_total_label"
     )
     total_price = total_price.text
     total_match_price = re.search(price_pattern, total_price)
     total_match_price = total_match_price.group()
     total_price = float(str(total_match_price).lstrip("$"))
 
-    order_finish = driver.find_element(By.ID, "finish")
+    order_finish = driver.find_element(By.CSS_SELECTOR, "#finish")
     order_finish.click()
 
-    complete = driver.find_element(By.XPATH, '//*[@id="header_container"]/div[2]/span')
+    complete = driver.find_element(By.CSS_SELECTOR, "#header_container div span")
 
     assert checkout_product_name == buy_a_product_name
     assert checkout_product_price == item_total_price
