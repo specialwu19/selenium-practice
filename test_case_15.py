@@ -12,36 +12,40 @@ def test_add_product_into_cart_success():
     login_success(driver)
 
     homepage_ready = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "title"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".title"))
     )
 
-    buy_a_product_1 = driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack")
+    buy_a_product_1 = driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack"
+    )
     buy_a_product_title_1 = driver.find_element(
-        By.XPATH, '//*[@id="item_4_title_link"]/div'
+        By.CSS_SELECTOR, "#item_4_title_link div"
     )
     buy_a_product_name_1 = buy_a_product_title_1.text
     buy_a_product_1.click()
     time.sleep(1)
 
-    buy_a_product_2 = driver.find_element(By.ID, "add-to-cart-sauce-labs-bolt-t-shirt")
+    buy_a_product_2 = driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bolt-t-shirt"
+    )
     buy_a_product_title_2 = driver.find_element(
-        By.XPATH, '//*[@id="item_1_title_link"]/div'
+        By.CSS_SELECTOR, "#item_1_title_link div"
     )
     buy_a_product_name_2 = buy_a_product_title_2.text
     buy_a_product_2.click()
     time.sleep(1)
 
-    shopping_cart = driver.find_element(By.ID, "shopping_cart_container")
+    shopping_cart = driver.find_element(By.CSS_SELECTOR, "#shopping_cart_container")
     shopping_cart_nmber_2 = driver.find_element(
-        By.XPATH, '//*[@id="shopping_cart_container"]/a/span'
+        By.CSS_SELECTOR, "#shopping_cart_container a span"
     )
     shopping_cart_nmber = shopping_cart_nmber_2.text
     shopping_cart.click()
     shopping_cart_product_1 = driver.find_element(
-        By.XPATH, '//*[@id="item_4_title_link"]/div'
+        By.CSS_SELECTOR, "#item_4_title_link div"
     )
     shopping_cart_product_2 = driver.find_element(
-        By.XPATH, '//*[@id="item_1_title_link"]/div'
+        By.CSS_SELECTOR, "#item_1_title_link div"
     )
 
     assert buy_a_product_name_1 == shopping_cart_product_1.text

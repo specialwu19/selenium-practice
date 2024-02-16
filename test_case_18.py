@@ -18,7 +18,9 @@ def test_add_product_into_cart_success():
     pick_a_product_1 = driver.find_element(By.CSS_SELECTOR, "#item_4_title_link div")
     pick_a_product_1.click()
     time.sleep(1)
-    buy_a_product_1 = driver.find_element(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack")
+    buy_a_product_1 = driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack"
+    )
     buy_a_product_title_1 = driver.find_element(
         By.CSS_SELECTOR, "div.inventory_details_desc_container div"
     )
@@ -33,7 +35,9 @@ def test_add_product_into_cart_success():
     pick_a_product_2 = driver.find_element(By.CSS_SELECTOR, "#item_1_title_link div")
     pick_a_product_2.click()
     time.sleep(1)
-    buy_a_product_2 = driver.find_element(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bolt-t-shirt")
+    buy_a_product_2 = driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bolt-t-shirt"
+    )
     buy_a_product_title_2 = driver.find_element(
         By.CSS_SELECTOR, "div.inventory_details_desc_container div"
     )

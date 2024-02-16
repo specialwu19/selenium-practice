@@ -1,12 +1,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utils import login_success, get_driver
+from utils import login_success, get_driver, get_price
 import time
-
-
-def get_price(price):
-    return float(price.text.split("$")[-1])
 
 
 driver = get_driver()
@@ -136,7 +132,7 @@ def test_checkout_success():
         "#checkout_summary_container div.summary_info_label.summary_total_label",
     )
     total_price = get_price(total_price)
-    
+
     order_finish = driver.find_element(By.CSS_SELECTOR, "#finish")
     order_finish.click()
 

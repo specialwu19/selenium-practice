@@ -23,7 +23,8 @@ def test_browse_products_success():
     time.sleep(1)
 
     the_first_product_own_page_title = driver.find_element(
-        By.CSS_SELECTOR, "#inventory_item_container div.inventory_details_name.large_size"
+        By.CSS_SELECTOR,
+        "#inventory_item_container div.inventory_details_name.large_size",
     )
 
     assert the_first_product_title_name == the_first_product_own_page_title.text

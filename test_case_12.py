@@ -15,7 +15,9 @@ def test_add_product_into_cart_and_remove_success():
         EC.presence_of_element_located((By.CSS_SELECTOR, ".title"))
     )
 
-    buy_a_product = driver.find_element(By.CSS_SELECTOR, "button.btn.btn_primary.btn_small.btn_inventory")
+    buy_a_product = driver.find_element(
+        By.CSS_SELECTOR, "button.btn.btn_primary.btn_small.btn_inventory"
+    )
     buy_a_product_title = driver.find_element(
         By.CSS_SELECTOR, "div.inventory_item div.inventory_item_name"
     )

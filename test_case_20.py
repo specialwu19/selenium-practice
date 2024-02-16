@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utils import login_success, get_driver
+from utils import login_success, get_driver, get_price
 import time
 import re
 
@@ -19,7 +19,9 @@ def test_checkout_success():
     pick_a_product = driver.find_element(By.CSS_SELECTOR, "#item_4_title_link div")
     pick_a_product.click()
     time.sleep(1)
-    buy_a_product = driver.find_element(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack")
+    buy_a_product = driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack"
+    )
     buy_a_product_title = driver.find_element(
         By.CSS_SELECTOR, "div.inventory_details_desc_container div"
     )
@@ -61,35 +63,25 @@ def test_checkout_success():
     checkout_product_name = checkout_product_name.text
 
     checkout_product_price = driver.find_element(
-        By.CSS_SELECTOR,
-        "div.item_pricebar div"
+        By.CSS_SELECTOR, ".inventory_item_price"
     )
     checkout_product_price = float(checkout_product_price.text.lstrip("$"))
 
     item_total_price = driver.find_element(
         By.CSS_SELECTOR, "#checkout_summary_container div.summary_subtotal_label"
     )
-    item_total_price = item_total_price.text
-    price_pattern = r"\$\d+\.\d+"
-    match_price = re.search(price_pattern, item_total_price)
-    match_price = match_price.group()
-    item_total_price = float(str(match_price).lstrip("$"))
+    item_total_price = get_price(item_total_price)
 
     tax_price = driver.find_element(
         By.CSS_SELECTOR, "#checkout_summary_container div.summary_tax_label"
     )
-    tax_price = tax_price.text
-    tax_match_price = re.search(price_pattern, tax_price)
-    tax_match_price = tax_match_price.group()
-    tax_price = float(str(tax_match_price).lstrip("$"))
+    tax_price = get_price(tax_price)
 
     total_price = driver.find_element(
-        By.CSS_SELECTOR, "#checkout_summary_container div.summary_info_label.summary_total_label"
+        By.CSS_SELECTOR,
+        "#checkout_summary_container div.summary_info_label.summary_total_label",
     )
-    total_price = total_price.text
-    total_match_price = re.search(price_pattern, total_price)
-    total_match_price = total_match_price.group()
-    total_price = float(str(total_match_price).lstrip("$"))
+    total_price = get_price(total_price)
 
     order_finish = driver.find_element(By.CSS_SELECTOR, "#finish")
     order_finish.click()

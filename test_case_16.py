@@ -18,7 +18,9 @@ def test_add_product_into_cart_and_remove_success():
     pick_a_product = driver.find_element(By.CSS_SELECTOR, "#item_4_title_link div")
     pick_a_product.click()
     time.sleep(1)
-    buy_a_product = driver.find_element(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack")
+    buy_a_product = driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack"
+    )
     buy_a_product_title = driver.find_element(
         By.CSS_SELECTOR, "div.inventory_details_desc_container div"
     )

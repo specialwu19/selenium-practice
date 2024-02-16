@@ -63,3 +63,6 @@ def get_driver():
 
     else:
         raise KeyError("尚未支援的driver")
+
+def get_price(price):
+    return float(price.text.split("$")[-1])
